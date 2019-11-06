@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import WithClass from '../hoc/withClass';
 
 class Conditionally extends Component{
    state={
@@ -6,13 +7,18 @@ class Conditionally extends Component{
            {name:'murali',age:24},
            {name:'Sainath',age:24}
        ],
-       showPersons:true 
+       showPersons:true,
+       toggleCount:0 
    } 
    
    togglePersonHandler=()=>{
        const showPersonsValue=this.state.showPersons;
-       this.setState({
-           showPersons:!showPersonsValue})
+       this.setState((prevState,props)=>{          //we can do it normal way also.But setState method will execute asynchronous way so it won't give correct output in every time.
+         return {  
+                    showPersons:!showPersonsValue,
+                    toggleCount:prevState.toggleCount+1
+                }
+        })
    }  
    
    render(){
@@ -38,7 +44,7 @@ class Conditionally extends Component{
       }
 
        return (
-           <div className="Person">
+            <WithClass classes="Person">   
                <h2>Conditional Operator</h2>
               { 2==3 ? <p>hi koti</p> :null }
               <button  style={style}   onClick={this.togglePersonHandler}>Toggle Data</button>
@@ -50,8 +56,8 @@ class Conditionally extends Component{
                 </div>
                 : null
               } 
-              {persons}  
-           </div>
+              {persons} 
+           </WithClass> 
        )
    }
 }

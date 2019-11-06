@@ -1,8 +1,9 @@
 import React from 'react';
 import './Person.css'
-
+import PropTypes from "prop-types";
  
 const person =(props)=>{
+//   console.log(props); 
   return (
      <div className="Person"> 
         {/* <p>this is person component. Age is {Math.floor(Math.random()*30)} </p>    */}
@@ -13,6 +14,14 @@ const person =(props)=>{
      </div>
   )
 };
+
+person.propTypes={
+   name:PropTypes.string,
+   age:PropTypes.string, 
+   click:PropTypes.func,
+   change:PropTypes.func
+}
+//propTypes are used to validate props.
 
 export default person;
 

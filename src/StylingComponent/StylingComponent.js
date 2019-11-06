@@ -1,5 +1,8 @@
 import React,{Component} from 'react';
 import Radium from 'radium';
+// eslint-disable-next-line
+import personcss from '../Person/Person.css'
+import st from './StylingComponent.module.css'
 
 class StylingComponent extends Component{
     state={
@@ -49,8 +52,9 @@ class StylingComponent extends Component{
         }
 
         return(
-            <div className="Person">
-                <h2>Styling Component</h2>
+            <div className="Person"  >
+                <h2 className={st.koti}>Styling Component</h2>  
+                {/* to apply local css*/}
                 <button style={style} onClick={this.toggleShowButton}>Toggle Button</button>
                 <br/><br/>
                 <p className={classes.join(' ')}  onClick={this.countReduceButton}>Adding Classes Dynamically</p>
@@ -76,7 +80,11 @@ export default Radium(StylingComponent);//TO use Radium module we will write in 
     --> But Using inline style we can't add CSS Pseudo-classes (like hover, before, visited).
         To use this we will use radium module. 
     --> Using radium module we can apply media queries also.   
-        
+    
+    
+    --> In latest versions of create-react-app, they are implemented local css.
+        By saving file to component.module.css, it makes css file to locally.
+        To use this css file we need to import in js file.    
           
     
  *
