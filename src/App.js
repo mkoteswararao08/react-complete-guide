@@ -5,6 +5,12 @@ import Person from './Person/Person';
 import Conditionally from './Conditionally/Conditionally';
 import ListsAndKeys from './ListsAndKeys/ListsAndKeys';
 import StylingComponent from './StylingComponent/StylingComponent';
+import LifeCycleComponent from './component-lifecycle/component-lifecycle';
+import {BrowserRouter,Route,Switch,Redirect} from 'react-router-dom';
+import NavBar from './navbar/navbar';
+import RoutingComponent from './routing-component/routing-component';
+import Http from './http/http';
+import Forms from './forms/forms';
 
 class App extends Component {
 
@@ -54,7 +60,9 @@ class App extends Component {
      cursor:'pointer'
    };
   return (
+   <BrowserRouter> 
     <div className="App">
+      <NavBar></NavBar>
       <h1>hi react app this is M Koteswara Rao</h1>
       <button style={style} onClick={this.switchNameHandler.bind(this,'Harsha')}>Button</button> 
       {/*  
@@ -72,13 +80,28 @@ class App extends Component {
              function to avoid this sort of performance problem.                                 
       */}
       <Person  name={this.state.persons[0].name} age={this.state.persons[0].age} 
-               click={this.switchNameHandler.bind(this,'chakri')} change={this.changeNameHandler}>
+               click={this.switchNameHandler.bind(this,'chakri')} change={this.changeNameHandler} >
                My Hobbies : Reading NEWS Paper </Person>
       <Person name="Uma" age="24">My Hobbies : Playing Cricket </Person>
-      <Conditionally></Conditionally>
-      <ListsAndKeys></ListsAndKeys>
-      <StylingComponent></StylingComponent>
+      <Switch>  
+        {/* switch is used to switch to only one route incase of using route parameter. if we use switch then at a time 
+            only one route will be displayed. First it will checks with route paths one after the other in same order,
+            if any one route matchs then it won't checks with other routes. 
+            If we won't use switch then it will checks for reaming routes also, even after one route matches. */}
+      <Route path="/" exact render={()=><h2>Home</h2>} />
+      <Route path="/conditionally" exact component={Conditionally} />
+      <Route path="/listsAndKeys" component={ListsAndKeys}  />
+      <Route path="/stylingComponent" exact component={StylingComponent} />
+      <Route path="/lifeCycleComponent" exact component={LifeCycleComponent}  /> 
+      <Route path="/RoutingComponent" component={RoutingComponent} />
+      <Route path="/http" component={Http} />
+      <Route path="/forms" component={Forms} />
+      <Redirect from="/koti" to="/conditionally"  />
+      {/* if we write Redirect inside switch then only we can use from. If we write outside switch then we can't 
+          use from. */}
+      </Switch>
     </div>
+    </BrowserRouter> 
   ); 
 
   // return React.createElement('div',{className:'App'},React.createElement('h1',null,'This is H1 tag'),' Hi M Koteswara Rao ');
